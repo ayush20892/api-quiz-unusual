@@ -19,6 +19,20 @@ router.route("/")
 })
 
 
+router.route("/:quizName")
+.get(async (req, res) => {
+  try {
+    const { quizName } = req.params
+    const quiz = await Quiz.find({ quizName: quizName })
+    res.json({ success: true, quiz: quiz })
+  } catch(err) {
+    res.status(400).json({
+      success: false,
+      message: "There was some error retrieving Quiz Data",
+      errorMessage: err.message
+    })
+  }
+})
 
 
 
